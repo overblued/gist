@@ -1,0 +1,12 @@
+[Unit]
+Description = Reverse ssh tunnel
+After = network-online.target sshd.service
+
+[Service]
+User = root
+ExecStart = /usr/bin/ssh -v -TN -R 8022:localhost:22  serveruser@serverpc
+RestartSec=5
+Restart=always
+
+[Install]
+WantedBy = multi-user.target
