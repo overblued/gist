@@ -5,7 +5,7 @@ After = network-online.target sshd.service
 [Service]
 User = root
 ExecStartPre = /usr/bin/ssh serveruser@serverpc "sudo lsof -i :8022 | sed -n 2p | rg '[0-9]+' -o | head -1 | ifne xargs kill"
-ExecStart = /usr/bin/ssh -v -TN -R 8022:localhost:22  serveruser@serverpc
+ExecStart = /usr/bin/ssh -v -TN -o ServerAliveInterval=6666 -R 8022:localhost:22  serveruser@serverpc
 RestartSec=5
 Restart=always
 
