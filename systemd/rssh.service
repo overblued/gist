@@ -4,8 +4,10 @@ After = network-online.target sshd.service
 
 [Service]
 User = root
-ExecStartPre = /usr/bin/ssh serveruser@serverpc "sudo lsof -i :8022 | sed -n 2p | rg '[0-9]+' -o | head -1 | ifne xargs kill"
-ExecStart = /usr/bin/ssh -v -TN -o ExitOnForwardFailure=yes -R 8022:localhost:22  serveruser@serverpc
+Environment=SERVER=serverpc USER=serveruser
+#ExecStartPre = /usr/bin/ssh ${USER}@${SERVER} "sudo lsof -i :8022 | sed -n 2p | rg '[0-9]+' -o | head -1 | ifne xargs kill"
+#ExecStartPre = /usr/bin/ssh ${USER}@${SERVER} "ps x | rg ${USER}$ | rg '\d+' -o | head -1  | ifne xargs kill"
+ExecStart = /usr/bin/ssh -v -TN -o ExitOnForwardFailure=yes -R 8022:localhost:22  ${USER}@${SERVER}
 RestartSec=10
 Restart=always
 
