@@ -100,6 +100,7 @@ vim.keymap.set("n","<A-l>", "<C-w>l")
 vim.keymap.set({"n","i","v"},"<C-\\><C-\\>", "<cmd>vsplit | terminal<CR>")
 
 
+vim.keymap.set("n","<leader>b", '<C-^>:bd #<CR>')
 
 
 
