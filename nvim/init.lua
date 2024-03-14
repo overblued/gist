@@ -81,6 +81,13 @@ vim.keymap.set('c', 'w!!', 'w !sudo tee %')
 -- vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
 vim.keymap.set("n", "Q", "<nop>")
+vim.keymap.set("n", "<C-q>", "q")
+vim.keymap.set("n", "q", "<nop>")
+
+-- 保存
+vim.keymap.set("n", "ZW", "<cmd>:qa!<CR>")
+vim.keymap.set({"n","v","i"}, "<C-s>", "<Esc>:update<CR>")
+
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
 vim.keymap.set("n", 'gt', "<cmd>diffget //2<CR>")
@@ -103,7 +110,14 @@ vim.keymap.set({"n","i","v"},"<C-\\><C-\\>", "<cmd>vsplit | terminal<CR>")
 vim.keymap.set("n","<leader>b", '<C-^>:bd #<CR>')
 
 
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = {"*.js","*.jsx","*.ts","*.tsx","*.html"},
 
+--  group = vim.g.user.event,
+  callback = function(args)
+    vim.lsp.buf.format()
+  end,
+})
 
 vim.api.nvim_create_autocmd('BufReadPost', {
 --  group = vim.g.user.event,
