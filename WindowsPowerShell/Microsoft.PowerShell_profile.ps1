@@ -16,3 +16,8 @@ function netshinterfaceportproxydelete {
     netsh interface portproxy delete v4tov4 listenaddress=$a1 listenport=$p1
 }
 Set-Alias -Name nipd -Value netshinterfaceportproxydelete
+
+function cellfn {
+	adb forward tcp:8022 tcp:8022 ; ssh -p 8022 localhost
+}
+Set-Alias -Name cell -Value cellfn
